@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'navbar.html' %}
+
+
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Postępy w Treningu</title>
+</head>
+<body>
+    <h1>Postępy w Treningu</h1>
+
+    {% if grouped_workouts %}
+        {% for custom_date, workouts in grouped_workouts.items %}
+            <h3>{{ custom_date|date:"d M Y" }}</h3>  <!-- Wyświetlanie daty  i fromatowanie day, month, year-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ćwiczenie </th>
+                        <th>Waga (kg)</th>
+                        <th>Powtórzenia</th>
+                        <th>Data</th>
+                        <th>Godzina</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for workout in workouts %}
+                        <tr>
+                            <td>{{ workout.exercise_name }}</td>
+                            <td>{{ workout.weight_1 }}</td>
+                            <td>{{ workout.reps_1 }}</td>
+                            <td>{{ workout.custom_date|date:"d M Y" }}</td>
+                            <td>{{ workout.custom_time|time:"H:i" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+    {% else %}
+        <p>Nie masz jeszcze zapisanych treningów.</p>
+    {% endif %}
+</body>
+</html>

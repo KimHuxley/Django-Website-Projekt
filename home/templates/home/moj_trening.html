@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'navbar.html' %}
+
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Trening w Moj Trening</title>
+</head>
+
+<body>
+    <h1>Plan Treningowy na Moj Trening</h1>
+    
+    {% if training_plan and training_plan.exercises.exists %}
+        <ul>
+            {% for exercise in training_plan.exercises.all %}
+                <li>
+                    <h2>{{ exercise.title }}</h2>
+                    <p>{{ exercise.description }}</p>
+                    <video controls width="400">
+                        <source src="{{ exercise.video.url }}" type="video/mp4">
+                        Twoja przeglądarka nie wspiera odtwarzania wideo.
+                    </video>
+
+                    <!-- Formularz do zapisania postępu -->
+                    <form action="{% url 'zapisz_trening' exercise.id %}" method="post">
+                        {% csrf_token %}
+                        <label for="reps_1">Seria 1 - Ilość powtórzeń:</label>
+                        <input type="number" name="reps_1" required>
+
+                        <label for="weight_1">Seria 1 - Waga (kg):</label>
+                        <input type="number" name="weight_1" required><br>
+
+                        <label for="custom_date">Data wykonania:</label>
+                        <input type="date" name="custom_date" required><br>
+
+                        <label for="custom_time">Godzina wykonania:</label>
+                        <input type="time" name="custom_time" required><br>
+
+                        <button type="submit">Zapisz postęp!</button>
+                    </form>
+
+                    <!-- Formularz do usunięcia ćwiczenia z planu -->
+                    <form action="{% url 'usun_z_planu' exercise.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Usuń z planu</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nie masz jeszcze ćwiczeń w swoim planie na poniedziałek.</p>
+    {% endif %}
+</body>
+</html>

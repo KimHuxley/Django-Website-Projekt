@@ -1,0 +1,17 @@
+{% load static %}
+{% include 'navbar.html' %}
+
+
+
+{% block content %}
+    <h2>Dodaj nowy plan treningowy</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Nazwa planu:</label>
+        <input type="text" name="title" required>
+        <button type="submit">Dodaj plan</button>
+    </form>
+    
+    <a href="{% url 'lista_planow' %}">Powrót do wyboru planów</a>
+{% endblock %}

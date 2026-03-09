@@ -1,0 +1,9 @@
+# Ignorowanie plików cache i kompiliowanych
+__pycache__/
+*.pyc
+
+# Ignorowanie bazy danych SQLite (jeśli nie chcesz jej śledzić w repozytorium)
+db.sqlite3
+
+# Ignorowanie folderu z mediami (np. przesyłane pliki wideo)
+media/

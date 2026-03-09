@@ -1,0 +1,93 @@
+{% load static %}
+{% include 'navbar.html' %}
+
+{% block content %}
+<h2>{{ plan.title }}</h2>
+
+<!-- FORMULARZ DODAWANIA TRENINGU -->
+<form method="POST">
+    {% csrf_token %}
+    
+    <label>Wybierz ćwiczenia:</label>
+    {% for exercise in plan.exercises.all %}                        <!-- 1 -->
+    <div>
+        <input type="checkbox" id="exercise_{{ exercise.id }}" name="exercise" value="{{ exercise.id }}">    <!-- checkbox, pypisanie id do cwiczenia o okreslonym id, nazwa, value -zostanie wysałna -->
+        <label for="exercise_{{ exercise.id }}">{{ exercise.title }}</label>    <!-- klikniecie na nazwe podwietli i zaznaczy nam ją -->
+
+        <div class="series-container" style="display: none;">   <!-- licznik serii domyslnie ukryty // pojawi się gdy uzytkownik kliknie w checkbox-->
+            <label>Ilość serii:</label>
+            <input type="number" name="sets_{{ exercise.id }}" min="1" value="0" class="sets-input">   <!-- kazde cwiczenie ma odpowiednie pole do serii // obsluga jave-->
+        </div>
+
+        <div id="fields_{{ exercise.id }}"></div>       <!-- element który dobiera seriesContainer linijka 40 -->
+    </div>
+    {% endfor %}
+
+    <label>Data:</label>
+    <input type="date" name="date" required>
+
+    <label>Godzina:</label>
+    <input type="time" name="time" required>
+
+    <button type="submit">Zapisz trening</button>
+</form>
+
+<script>   /*skrypt odpowidzialny za check boxy*/
+document.addEventListener("DOMContentLoaded", function () {         /*upewnienie się, ze zostanie wykonany dopiero po pełnym załadownaiu strony*/
+    document.querySelectorAll("input[name='exercise']").forEach(checkbox => {       /*wybieranie wszystkich pól chceck boxów o nazwie exercise*/
+        checkbox.addEventListener("change", function () {                           /*eventListener reaguje na zdarzenie zmainy w checkboxie */
+            let exerciseId = this.value;                /*pobieranie wartosci check boxa i zaklada ze ma unikalnie value*/
+            let seriesContainer = this.nextElementSibling.nextElementSibling;        /*odnosi sie do struktury DOM, pobiera 2 elementy dalej */
+            let fieldsContainer = document.getElementById("fields_" + exerciseId);  /*pobieranie elementu (wartosc chekboxa) i podpianie go do np fields_3 */
+            if (this.checked) {             /*jesli jest zaznaczony to */
+                seriesContainer.style.display = "block";            /*element series Container staje sie widoczny*/
+            } else {
+                seriesContainer.style.display = "none";             /*jesli series container nie został zaznaczony to ukrywa się */
+                fieldsContainer.innerHTML = "";                     /*czyszczenie zawartosci fieldsCointainer*/
+            }
+        });
+    });
+
+    document.addEventListener("input", function (event) {          /* nasłuchiwanie wszyskich zmian input || wykrywanie ilosci serii*/
+        if (event.target.classList.contains("sets-input")) {        /*sprawdzanie czy to dotyczy sets-input czyli tylko serii */
+            let exerciseId = event.target.name.split("_")[1];       /*pobranie pola input i dzielenie do tablicy z sets_3 na  ["sets", "3" ] */
+            let fieldsContainer = document.getElementById("fields_" + exerciseId);          /*pobranie kontenera linijka 22 || tworzenie identyfikatora np fields_3*/
+            let sets = parseInt(event.target.value);             /*pobranie wartosci wpisane w input dla sets|| parseINT konwertuje na całkowite*/
+            fieldsContainer.innerHTML = "";               /*usuwanie zeby zapobiec duplikacji || jak np zmiana 3 serie na 5 (program usunie 3 i doda 5)*/
+
+            for (let i = 0; i < sets; i++) {        /*pętla wykonuje sie tyle ile jest serii */      /*dodawanie dynamicznych pola input do kazdej serii cwiczen*/   /*${i + 1} numeruje serie seria 1, seria 2*/  /*tworzenie pola input i name="reps_${exerciseId}_${i}" i zapiswanie jej do konkretnego ćwiczenia !!!np reps_3_0 to 1 seria,reps_3_1 druga */
+                fieldsContainer.innerHTML += `      
+                    <div>
+                        <label>Seria ${i + 1} - Powtórzenia:</label>
+                        <input type="number" name="reps_${exerciseId}_${i}" required>
+                        <label>Kg:</label>
+                        <input type="number" name="weight_${exerciseId}_${i}" step="0.1" required>
+                    </div>
+                `;
+            }
+        }
+    });
+});
+</script>
+<ul>
+    {% for exercise in plan.exercises.all %}
+    <li>
+      <h2>{{ exercise.title }}</h2>
+      <form method="post" action="{% url 'usun_z_planu' exercise.id %}">
+        <p>{{ exercise.description }}</p>
+        <video controls width="400">
+          <source src="{{ exercise.video.url }}" type="video/mp4">
+          Twoja przeglądarka nie wspiera odtwarzania wideo.
+        </video>
+        {% csrf_token %}
+        <input type="hidden" name="plan_id" value="{{ plan.id }}">
+        <button type="submit">Usuń</button>
+      </form>
+    </li>
+    {% empty %}
+      <p>Brak ćwiczeń w tym planie.</p>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'lista_planow' %}">Powrót do listy planów</a>
+{% endblock %}

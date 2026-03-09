@@ -1,0 +1,11 @@
+
+
+
+.logo {
+    width: 150px;  /* szerokość logo na 150px */
+    height: auto;  /* automatyczna wysokość w proporcji */
+    display: block; /* zmiana na blokowydo zastosowania margineso */
+    margin-left: auto; /* Automatyczne marginesy dla wyśrodkowania */
+    margin-right: auto; 
+}
+

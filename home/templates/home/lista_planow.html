@@ -1,0 +1,31 @@
+{% load static %}
+{% include 'navbar.html' %}
+
+{% block content %}
+  <h2>Twoje plany treningowe</h2>
+  <table>
+    {% for plan in plany %}
+      <tr>
+        <td>
+          <a href="{% url 'szczegoly_planu' plan.id %}">{{ plan.title }}</a>
+        </td>
+
+        <td>
+          <form action="{% url 'usun_plan' plan.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" onclick="return confirm('Czy na pewno chcesz usunąć ten plan?')">
+              Usuń
+            </button>
+          </form>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="2">Nie masz jeszcze żadnych planów treningowych.</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <br>
+  <a href="{% url 'stworz_plan' %}">Dodaj nowy plan</a>
+{% endblock %}

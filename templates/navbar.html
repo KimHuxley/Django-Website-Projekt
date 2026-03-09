@@ -1,0 +1,30 @@
+{% load static %}
+
+<head>
+    {% if user.is_authenticated %}
+    <p>Witaj, {{ user.username }}!</p>
+    <a href="{% url 'logout' %}">Wyloguj</a>
+{% else %}
+    <a href="{% url 'login' %}">Zaloguj się</a>
+{% endif %}
+
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+<nav>
+        <img src="{% static 'logoWH.png' %}" alt="Logo" class="logo">
+    </a>
+ 
+<h1>WORK HARD</h1>
+<ul>
+    <li><a href="{% url 'startowa' %}">Strona Główna</a></li>
+    <li><a href="{% url 'protipy' %}">Protipy!</a></li>
+    <li><a href="{% url 'wykonywanie_cwiczen' %}">Jak poprawnie wykonywać ćwiczenia</a></li>
+
+
+
+    <li><a href="{% url 'lista_planow' %}">Wybierz plan treningowy</a></li>
+    <li><a href="{% url 'progress' %}">Sprawdź swój progres</a></li>
+</nav>
+</ul>
+</head>
+<hr>
