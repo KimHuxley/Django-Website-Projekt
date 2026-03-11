@@ -1,21 +1,19 @@
 # WORKHARD
 
+ WORKHARD is a fitness application designed to help you transform your physique, whether you train at home or at the gym.
 
-## O projekcie
-WORKHARD to aplikacja, która pomoże zmienić lub poprawić sylwetkę w domu jak i na siłowni. Nie ma miejsca na narzekanie. Czy miałeś kiedyś chęć  pójścia na siłownie ale nie mogłeś się odnaleźć, każda maszyna wyglądała strasznie, więc marzenie o sylwetce Leonidasa opóźniłeś w czasie? W raz z EAZYworkout, nie będziesz miał problemu ze znajdywaniem ćwiczeń oraz z poprawnym wykonywaniem ich. Chodzenie na siłownie będzie od teraz prostsze oraz skuteczne, ponieważ informacje zawarte w nim będą zarówno dla początkujących jak i dla zaawansowanych. Technika i wybór ćwiczeń wraz z planem treningowym, które zostały stworzone już od podstaw, pozwolą ci wejść w świat siłowniany bez stresu.
- 
+## Why WORKHARD?
+Many people want to start their fitness journey but feel overwhelmed by complicated gym machines or a lack of knowledge. WORKHARD simplifies everything. Whether you want to look like Leonidas or just improve your health, this app provides the tools to train effectively and without stress.
 
-### Dla użytkowników 
+## Key Features
 
+- Video Tutorials: Clear instructions on how to perform exercises with proper technique.
 
- - informacje dla początkujących na siłowni (wstęp, opis jak powinien wyglądać trening, jedzenie, nawodnienie).
- - filmiki instruktarzu, jak powinno wyglądać dane ćwiczenie (opis o czym warto pamiętać).
- - plan treningowy.
- - protipy (siłowniane jedzeniowe, pitne), wybór ćwiczenia, jak idzie siłownia.
- - Śledzenie postępów
+- Ready-to-use Workout Plans: Structured routines designed from scratch for all levels.
 
+- Pro-Tips: Expert advice on gym habits, diet, and supplement choices.
 
-### Podsumowanie
+- Progress Tracking: Monitor your gains and stay motivated.
 
-Podsumowując, WORKHARD może stać się bardzo pomocnym narzędziem zarówno dla osób, które chcą trenować na siłowni, jak i w domu. Pomysł jest świetny, a możliwość personalizacji i łatwego dostępu do informacji sprawi, że użytkownicy będą mogli efektywnie pracować nad swoimi celami fitness.
-
+## Summary
+WORKHARD is a powerful tool for anyone looking to reach their fitness goals. With easy access to information and personalized guidance, stepping into the world of fitness has never been easier.
